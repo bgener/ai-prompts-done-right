@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+    <File Path="docker-compose.yml" />
+    <File Path="run-demo.ps1" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Weather.Api/Weather.Api.csproj" />
+    <Project Path="src/Weather.Console/Weather.Console.csproj" />
+    <Project Path="src/Weather.Mcp/Weather.Mcp.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Weather.Mcp.Tests/Weather.Mcp.Tests.csproj" />
+  </Folder>
+  <Folder Name="/eval/">
+    <File Path="eval/promptfoo.yaml" />
+    <File Path="eval/package.json" />
+  </Folder>
+</Solution>

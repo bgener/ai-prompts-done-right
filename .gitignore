@@ -1,0 +1,7 @@
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+eval/node_modules/
+eval/.promptfoo/

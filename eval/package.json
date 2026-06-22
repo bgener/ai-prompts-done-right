@@ -1,0 +1,15 @@
+{
+  "name": "weather-prompt-eval",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "eval": "promptfoo eval -c promptfoo.yaml",
+    "view": "promptfoo view"
+  },
+  "devDependencies": {
+    "promptfoo": "^0.121.15"
+  }
+}

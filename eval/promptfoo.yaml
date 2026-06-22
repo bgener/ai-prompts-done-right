@@ -1,0 +1,78 @@
+description: Evaluate summarize-weather prompt for tone adherence and quality
+
+providers:
+  - id: openai:gpt-4o-mini
+    config:
+      temperature: 0.1
+
+prompts:
+  # Mirrors summarize-weather.prompty — update both when the prompt changes.
+  - label: "current"
+    raw: |
+      [
+        {"role": "system", "content": "You are a weather presenter. Apply this tone: {{tone}}.\n\nTone guide:\n- casual: short sentences, everyday words, relaxed register\n- formal: structured paragraphs, measured language, broadcast style\n- technical: include meteorological terms (fronts, humidity, pressure) where relevant\n\nKeep the summary under 100 words. Always name the city."},
+        {"role": "user",   "content": "Summarize the {{days}}-day outlook for {{city}}."}
+      ]
+  - label: "experiment"
+    raw: |
+      [
+        {"role": "system", "content": "You are a {{tone}} weather reporter. Be brief. Always name {{city}}."},
+        {"role": "user",   "content": "{{days}}-day forecast for {{city}}."}
+      ]
+
+defaultTest:
+  assert:
+    - type: not-contains
+      value: "{{"
+
+tests:
+  - description: Casual tone mentions the city
+    vars:
+      city: Amsterdam
+      tone: casual
+      days: "3"
+    assert:
+      - type: contains
+        value: Amsterdam
+      - type: llm-rubric
+        value: The response uses casual, friendly, everyday language. No formal or technical meteorological terms.
+
+  - description: Formal tone for London
+    vars:
+      city: London
+      tone: formal
+      days: "5"
+    assert:
+      - type: contains
+        value: London
+      - type: llm-rubric
+        value: The response uses formal, professional language appropriate for a news broadcast or official bulletin.
+
+  - description: Technical tone for Tokyo
+    vars:
+      city: Tokyo
+      tone: technical
+      days: "3"
+    assert:
+      - type: contains
+        value: Tokyo
+      - type: llm-rubric
+        value: The response uses meteorological or technical language (e.g. fronts, pressure, humidity, precipitation).
+
+  - description: Response stays under 100 words
+    vars:
+      city: Berlin
+      tone: casual
+      days: "3"
+    assert:
+      - type: javascript
+        value: output.trim().split(/\s+/).length <= 100
+
+  - description: City name is always present regardless of tone
+    vars:
+      city: "São Paulo"
+      tone: formal
+      days: "7"
+    assert:
+      - type: contains
+        value: "São Paulo"
