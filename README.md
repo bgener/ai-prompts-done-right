@@ -1,6 +1,6 @@
 # AI Prompts Done Right
 
-Demo for the article [MCP Prompts Done Right: Use .prompty Files in .NET](https://bgener.nl).
+Demo for the article [AI Prompts Done Right: Use .prompty Files in .NET](https://bgener.nl).
 
 One `.prompty` file is the source of truth for the MCP server prompt, unit tests, and LLM evals. No hardcoded strings.
 
