@@ -6,13 +6,10 @@ providers:
       temperature: 0.1
 
 prompts:
-  # Mirrors summarize-weather.prompty — update both when the prompt changes.
-  - label: "current"
-    raw: |
-      [
-        {"role": "system", "content": "You are a weather presenter. Apply this tone: {{tone}}.\n\nTone guide:\n- casual: short sentences, everyday words, relaxed register\n- formal: structured paragraphs, measured language, broadcast style\n- technical: include meteorological terms (fronts, humidity, pressure) where relevant\n\nKeep the summary under 100 words. Always name the city."},
-        {"role": "user",   "content": "Summarize the {{days}}-day outlook for {{city}}."}
-      ]
+  # The real prompt, rendered from summarize-weather.prompty. One source of truth.
+  - id: file://prompts/summarize.mjs
+    label: "current"
+  # A candidate variant to A/B against the real prompt. Not shipped.
   - label: "experiment"
     raw: |
       [
